@@ -177,7 +177,7 @@ Finally, equal generalizability means that we can expect the same future outcome
 \subsection{Validity Simulation}
 To increase the accessibility of the mathematical results, we first set up a small simulation just to demonstrate the results. In this simulation, a single observed variable is investigated either with a peek preview sampling strategy or with a classical fixed-$N$ sampling strategy. In the peek preview strategy, half of the data set is sampled; if the average of the observed data points is above zero, the result is reported. Otherwise, the second half is sampled. In the classical strategy, data sets of the same sizes (either half or the full data set) is simulated. In both cases, a hold-out set is simulated afterwards. The true effect size for each of 10,000 simulation trials is chosen from a standard normal distribution. 
 
-<<kable>>=
+<<SimulationCode, echo=F, cache = T>>=
 library(ggplot2)
 library(knitr)
 
@@ -213,7 +213,9 @@ for (trial in 1:trials) {
     result <- rbind(result, data.frame(procedure = "vanilla", N = 2, p = p, repEst = y))
   }
 }
+@
 
+<<PlotCode, fig.cap="Caption", fig.align = 'center'>>=
 ggplot(result, aes(x = p, y = repEst, color = procedure)) +
   geom_point(size = 0.5) +
   geom_smooth(method = "lm", se = TRUE, size = 2) +
@@ -223,7 +225,6 @@ ggplot(result, aes(x = p, y = repEst, color = procedure)) +
        y = "holdout estimate",
        color = "procedure") +
   theme_minimal()
-
 @
 
 
