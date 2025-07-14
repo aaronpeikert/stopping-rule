@@ -93,16 +93,6 @@ Note that not all early stopping rules in the frequentist framework base their s
 
 The benefits of early stopping are not generally in dispute.  In brief, it is more efficient to stop a study as soon as enough data is available to reach a conclusion. This efficiency is not only a matter of participant costs and laboratory fees; it also requires fewer participants, and therefore carries potential ethical burdens.  In a randomized clinical trial where the experimental treatment might be life-saving, withholding that treatment from additional placebo-group participants than necessary may result in preventable deaths; the same is true if the treatment is ineffective and experimental participants are denied standard-of-care treatment \parencite[ellenberg2019data].
 
-<<kable>>=
-n <- 100
-x <- rnorm(n)
-y <- 2*x + rnorm(n)
-out <- lm(y ~ x)
-library(knitr)
-kable(summary(out)$coef, digits=2)
-@
-
-
 % comment from hannes regarding grieve2024probability, more or less on topic and recent. More reliable papers are a lot older (Around 2005)
 The challenge to early stopping was identified at least as early as \citeyear{Wald_method_1945} by \citeauthor{Wald_method_1945}, although that paper cites discussions from an even earlier paper \parencite[specifically][]{Dodge_method_1929}.  More recent work has tackled this problem as recently as \parencite{grieve2024probability}, suggesting that this problem is ages old.  Specifically, the problem lies in the increase in Type-I error rates from early stopping if a statistically significant $p$ value was obtained before the completion of the study.  To summarize briefly, repeated comparisons to the computed $p$ value lead to an accumulation of Type-I error rates.  Over the decades in between, a large number of frequentist approaches have attempted to circumvent these effects, most commonly by sacrificing Type-II error rates to improve Type-I error \parencite[see, e.g.][]{pocock1977group, o1979multiple}.
 
@@ -185,7 +175,17 @@ Secondly, the fact that any particular result allows the same conclusions about 
 Finally, equal generalizability means that we can expect the same future outcome when the same data has been reported. If that is not the case, for example, if one sampling procedure reports fewer participants than another, the interpretation of the result will also differ; the precision of the lower-$n$ estimate will naturally be lower than that of the higher-$n$ estimate. 
 
 \subsection{Validity Simulation}
-To increase the accessibility of the mathematical results, we first set up a small simulation just to demonstrate the results. In this simulation, a single observed variable is investigated either with a peek preview sampling strat
+To increase the accessibility of the mathematical results, we first set up a small simulation just to demonstrate the results. In this simulation, a single observed variable is investigated either with a peek preview sampling strategy or with a classical fixed-$N$ sampling strategy. In the peek preview strategy, half of the data set is sampled; if the average of the observed data points is above zero, the result is reported. Otherwise, the second half is sampled. In the classical strategy, data sets of the same sizes (either half or the full data set) is simulated. In both cases, a hold-out set is simulated afterwards. The true effect size for each of 10,000 simulation trials is chosen from a standard normal distribution. 
+
+<<kable>>=
+n <- 100
+x <- rnorm(n)
+y <- 2*x + rnorm(n)
+out <- lm(y ~ x)
+library(knitr)
+kable(summary(out)$coef, digits=2)
+@
+
 
 \section{Longitudinal Simulation}
 
