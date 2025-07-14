@@ -34,9 +34,7 @@ jobs:
       -
         name: Make things to be published.
         run: |
-          Rscript -e "knitr::knit('main.Rnw')"
-          biber main
-          pdflatex main.tex
+          Rscript -e "knitr::knit2pdf('main.Rnw', bib_engine = 'biber')"
           mkdir -p publish/
           cp main.pdf publish/main.pdf
       -
