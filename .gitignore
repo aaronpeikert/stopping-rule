@@ -50,7 +50,6 @@ renv.lock
 .Ruserdata
 
 # Docker
-Dockerfile*
 docker-compose*
 .dockerignore
 *.tar
