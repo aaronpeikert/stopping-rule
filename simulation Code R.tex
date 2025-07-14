@@ -8,7 +8,7 @@ trials <- 10000
 for (trial in 1:trials) {
   effect = rnorm(1, mean = 0, sd = 1)
   
-  # study by peek preview sampling procedure
+  # point by peek preview sampling procedure
   x1 <- rnorm(1, mean = effect, sd = 1) 
   x2 <- rnorm(1, mean = effect, sd = 1)
   y <- rnorm(1, mean = effect, sd = 1)
@@ -21,7 +21,7 @@ for (trial in 1:trials) {
     result <- rbind(result, data.frame(procedure = "peek", N = 2, p = p, repEst = y))
   }
 
-  # study by vanilla sampling with N = 1 and N = 2, alternating
+  # study vanilla with N = 1 and N = 2
   x1 <- rnorm(1, mean = effect, sd = 1) 
   x2 <- rnorm(1, mean = effect, sd = 1)
   y <- rnorm(1, mean = effect, sd = 1)
@@ -35,12 +35,15 @@ for (trial in 1:trials) {
   }
 }
 
-resultN2 = subset(result, N==2)
-ggplot(resultN2, aes(x = p, y = repEst, color = procedure)) +
+gplot(result, aes(x = p, y = repEst, color = procedure)) +
   geom_point(size = 0.5) +
   geom_smooth(method = "lm", se = TRUE, size = 2) +
+  facet_wrap(~ N, labeller = as_labeller(c("1" = "smaller N", "2" = "larger N"))) +
   labs(title = "p-value reported vs estimate of the hold-out set",
        x = "p-value",
        y = "holdout estimate",
        color = "procedure") +
   theme_minimal()
+
+
+
