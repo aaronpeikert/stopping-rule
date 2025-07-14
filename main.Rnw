@@ -178,12 +178,52 @@ Finally, equal generalizability means that we can expect the same future outcome
 To increase the accessibility of the mathematical results, we first set up a small simulation just to demonstrate the results. In this simulation, a single observed variable is investigated either with a peek preview sampling strategy or with a classical fixed-$N$ sampling strategy. In the peek preview strategy, half of the data set is sampled; if the average of the observed data points is above zero, the result is reported. Otherwise, the second half is sampled. In the classical strategy, data sets of the same sizes (either half or the full data set) is simulated. In both cases, a hold-out set is simulated afterwards. The true effect size for each of 10,000 simulation trials is chosen from a standard normal distribution. 
 
 <<kable>>=
-n <- 100
-x <- rnorm(n)
-y <- 2*x + rnorm(n)
-out <- lm(y ~ x)
+library(ggplot2)
 library(knitr)
-kable(summary(out)$coef, digits=2)
+
+result <- data.frame (procedure = factor(character(), levels = c("peek", "vanilla")), N=as.numeric(), p=as.numeric(), repEst = as.numeric())
+
+trials <- 10000
+for (trial in 1:trials) {
+  effect = rnorm(1, mean = 0, sd = 1)
+  
+  # point by peek preview sampling procedure
+  x1 <- rnorm(1, mean = effect, sd = 1) 
+  x2 <- rnorm(1, mean = effect, sd = 1)
+  y <- rnorm(1, mean = effect, sd = 1)
+  
+  if (x1 > 0) { 
+    p = 1-pnorm(x1, mean = 0, sd = 1)
+    result <- rbind(result, data.frame(procedure = "peek", N = 1, p = p, repEst = y))
+  } else {
+    p = 1-pnorm(x1, mean = 0, sd = 1/sqrt(1+1))
+    result <- rbind(result, data.frame(procedure = "peek", N = 2, p = p, repEst = y))
+  }
+
+  # study vanilla with N = 1 and N = 2
+  x1 <- rnorm(1, mean = effect, sd = 1) 
+  x2 <- rnorm(1, mean = effect, sd = 1)
+  y <- rnorm(1, mean = effect, sd = 1)
+  
+  if (trial %% 2 == 0) { 
+    p = 1-pnorm(x1, mean = 0, sd = 1)
+    result <- rbind(result, data.frame(procedure = "vanilla", N = 1, p = p, repEst = y))
+  } else {
+    p = 1-pnorm(x1, mean = 0, sd = 1/sqrt(1+1))
+    result <- rbind(result, data.frame(procedure = "vanilla", N = 2, p = p, repEst = y))
+  }
+}
+
+ggplot(result, aes(x = p, y = repEst, color = procedure)) +
+  geom_point(size = 0.5) +
+  geom_smooth(method = "lm", se = TRUE, size = 2) +
+  facet_wrap(~ N, labeller = as_labeller(c("1" = "smaller N", "2" = "larger N"))) +
+  labs(title = "p-value reported vs estimate of the hold-out set",
+       x = "p-value",
+       y = "holdout estimate",
+       color = "procedure") +
+  theme_minimal()
+
 @
 
 
