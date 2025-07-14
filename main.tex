@@ -18,7 +18,6 @@
 \usepackage{pst-plot}
 \usepackage{pst-node}
 \usepackage{lscape}
-\usepackage{arydshln}
 \usepackage{tabularx}
 %\usepackage[top=1in, bottom=1in, left=1in, right=1in,a4paper]{geometry}.
 \usepackage{geometry}
@@ -186,7 +185,7 @@ For every population generated in this way, data is generated for each sampling 
 
 In this illustrative example, five researchers with different sampling procedures are considered: \\[0.1cm]  % Possibly rephrase depending on required outcomes.
 %TB: it's basically unheard of that a study is published with sample size = 5. Hence, these examples might be seen as unrealistic. Should they maybe be increased for this reason? Or a reason provided why they are chosen so low?
-%TvO: Sample size is larger, it's just five different researchers that sample N=20 participants researchers 
+%TvO: Sample size is larger, it's just five different researchers that sample N=20 participants each, by different sampling procedures. And in fact, N=1 studies are still published :).  
 Researcher 0 performs a simple random sample of $N=20$ participants; they are the baseline for the comparison of the others. 
 Researcher 1 samples at least 5 participants until the mean is significantly smaller than zero, in which case he reports the results, or $N=20$ participants are reached. \\
 Researcher 2 samples at least 5 participants until the mean is significantly smaller than zero or $N=20$, using a Bonferoni correction on the $\alpha$ level that ensures an $\alpha$ of 0.05 for an omnibus-test using the current number of tests done so far . \\
@@ -198,8 +197,8 @@ Researcher 6 samples like Researcher 0, but then computes the reported statistic
 
 %Possible definitional distinction worth hammering here.  That is, can we find a way to highlight more strongly that this doesn't meet our definition?
 
-Note that Researcher 6 does not really apply a different sampling procedure (they use the same procedure as the baseline Researcher 0).%TB: There is no condition in which researcher 0 ignores the data while there is a condition when researcher 6 ignores the data (3 or less benefitted). How is this the same sampling procedure? In my view, "only report those that benefitted" fits your explanation of simply altering the reported statistic. But adding "unless there were three or less, then he does not report" changes the sampling procedure for me
-Instead, they alter the statistic reported to one that is not sufficient. Following the math, we expect all Researchers to generalize equally well with exception of Researcher 6; here, we expect that for the same outcome reported, the mean slope of a replication study will show less decline than for the others. 
+Note that Researcher 6 does not apply a different sampling procedure (they use the same procedure as the baseline Researcher 0). %TB: There is no condition in which researcher 0 ignores the data while there is a condition when researcher 6 ignores the data (3 or less benefitted). How is this the same sampling procedure? In my view, "only report those that benefitted" fits your explanation of simply altering the reported statistic. But adding "unless there were three or less, then he does not report" changes the sampling procedure for me
+Instead, they alter the statistic reported to one that is not sufficient. So their procedure i Following the math, we expect all Researchers to generalize equally well with exception of Researcher 6; here, we expect that for the same outcome reported, the mean slope of a replication study will show less decline than for the others. 
 
 \subsection{Computation of the Difference in the Population Expectation}
 To reiterate our goal, in our illustrative example, we are interested whether we can expect the same effect of the therapy if we get the same report by two researchers using different sampling strategies. So for instance, assume Researcher 0 pre-registered to sample $N$ instances and then does exactly that, while Researcher 1 sampled participants until reaching a significant result. Now both researcher report exactly the same result in two different articles (say, on two different therapies). Does that mean that the therapy investigated by Researcher 0 should be expected to be more effective than that of Researcher 1? In other words, if we would do replication studies for both therapies with infinitely many participants, would the therapy of Researcher 0 turn out to have a stronger decline of symptoms? 
