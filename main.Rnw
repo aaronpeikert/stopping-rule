@@ -184,8 +184,11 @@ Secondly, the fact that any particular result allows the same conclusions about 
 
 Finally, equal generalizability means that we can expect the same future outcome when the same data has been reported. If that is not the case, for example, if one sampling procedure reports fewer participants than another, the interpretation of the result will also differ; the precision of the lower-$n$ estimate will naturally be lower than that of the higher-$n$ estimate. 
 
+\subsection{Validity Simulation}
+To increase the accessibility of the mathematical results, we first set up a small simulation just to demonstrate the results. In this simulation, a single observed variable is investigated either with a peek preview sampling strat
 
-\section{Simulation}
+\section{Longitudinal Simulation}
+
 \subsection{Simulation Population}
 We demonstrate the generalizability of sampling procedures by a simulation. For an illustrative example, assume a researcher investigates the decline of symptoms during a cognitive therapy. Symptoms are assumed to be normally distributed and are measured before the therapy, after half the sessions, and after the therapy. The mean effect is assumed to be linear, so the data will be analyzed by a LGCM with latent intercept and slope predicting the three measurements within each person. The model has two mean parameter and six variance parameter (three measurement errors and the $2\times2$ covariance matrix of the latent variables). 
 
