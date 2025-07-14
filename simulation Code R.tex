@@ -8,7 +8,7 @@ trials <- 10000
 for (trial in 1:trials) {
   effect = rnorm(1, mean = 0, sd = 1)
   
-  # point by peek preview sampling procedure
+  # study by peek preview sampling procedure
   x1 <- rnorm(1, mean = effect, sd = 1) 
   x2 <- rnorm(1, mean = effect, sd = 1)
   y <- rnorm(1, mean = effect, sd = 1)
@@ -21,7 +21,7 @@ for (trial in 1:trials) {
     result <- rbind(result, data.frame(procedure = "peek", N = 2, p = p, repEst = y))
   }
 
-  # study vanilla with N = 1 and N = 2
+  # study by vanilla sampling with N = 1 and N = 2, alternating
   x1 <- rnorm(1, mean = effect, sd = 1) 
   x2 <- rnorm(1, mean = effect, sd = 1)
   y <- rnorm(1, mean = effect, sd = 1)
