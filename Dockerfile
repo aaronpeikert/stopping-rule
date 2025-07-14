@@ -1,4 +1,5 @@
 FROM rocker/verse:4.5.1
+RUN apt-get update -y && apt-get install -y rsync
 
 # Install additional LaTeX packages
 RUN tlmgr update --self && \

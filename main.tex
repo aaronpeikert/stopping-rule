@@ -1,4 +1,54 @@
-\documentclass[man]{apa7}
+\documentclass[man]{apa7}\usepackage[]{graphicx}\usepackage[]{xcolor}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlsng}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hldef}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
 
 \usepackage[american]{babel}
 \usepackage{csquotes}
@@ -85,6 +135,7 @@ These results throw into question a large swath of literature on the appropriate
 %Log for things I changed in the text (every time I activate "Reviewing" mode, it immediately deactivates again)
 %1. I exchanged "\cite" for "\parencite" as the first option cited without parenthesis
 %2. I corrected simple grammatical errors
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 \maketitle
 The question of early stopping has been a matter of significant discussion over many decades (see, for example, \parencite{OBrien_Multiple_1979}).  In an early stopping paradigm, a series of decision points is defined over the course of the design.  A sequential testing series is then enacted, whereby at each decision point some criterion condition is computed and compared to a cutoff.  A simple example of a sequential test for early stopping in the frequentist framework is a simple null hypothesis significance test, performed after every participant's data is collected.  In the simplest form of this process, a $p$ value is computed after each participant.  The $p$ value is compared to a pre-decided $\alpha$ value, in this very simple example a static value of .05.  If the $p$ value is larger than the $\alpha$, another participant is recruited and their results recorded until either a the full pre-planned sample size is collected or one of the tests results in a $p$ value less than .05.   In essence, the conclusion of the study then rests on whether such a low $p$ value was collected before the preplanned sample size (in which case the null hypothesis would be rejected), or not (in which case no conclusion would be drawn).
@@ -92,6 +143,30 @@ The question of early stopping has been a matter of significant discussion over 
 Note that not all early stopping rules in the frequentist framework base their stopping rules on the $p$ value.  Others focus on process of adaptation \parencite[][]{chow2008adaptive}, or on the selection of stopping criteria \parencite[e.g. estimate precision][]{KenKelly} that do not bias Type-I error rates.
 
 The benefits of early stopping are not generally in dispute.  In brief, it is more efficient to stop a study as soon as enough data is available to reach a conclusion. This efficiency is not only a matter of participant costs and laboratory fees; it also requires fewer participants, and therefore carries potential ethical burdens.  In a randomized clinical trial where the experimental treatment might be life-saving, withholding that treatment from additional placebo-group participants than necessary may result in preventable deaths; the same is true if the treatment is ineffective and experimental participants are denied standard-of-care treatment \parencite[ellenberg2019data].
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{n} \hlkwb{<-} \hlnum{100}
+\hldef{x} \hlkwb{<-} \hlkwd{rnorm}\hldef{(n)}
+\hldef{y} \hlkwb{<-} \hlnum{2}\hlopt{*}\hldef{x} \hlopt{+} \hlkwd{rnorm}\hldef{(n)}
+\hldef{out} \hlkwb{<-} \hlkwd{lm}\hldef{(y} \hlopt{~} \hldef{x)}
+\hlkwd{library}\hldef{(knitr)}
+\hlkwd{kable}\hldef{(}\hlkwd{summary}\hldef{(out)}\hlopt{$}\hldef{coef,} \hlkwc{digits}\hldef{=}\hlnum{2}\hldef{)}
+\end{alltt}
+\end{kframe}
+\begin{tabular}{l|r|r|r|r}
+\hline
+  & Estimate & Std. Error & t value & Pr(>|t|)\\
+\hline
+(Intercept) & 0.05 & 0.10 & 0.48 & 0.63\\
+\hline
+x & 2.06 & 0.08 & 24.27 & 0.00\\
+\hline
+\end{tabular}
+
+\end{knitrout}
+
 
 % comment from hannes regarding grieve2024probability, more or less on topic and recent. More reliable papers are a lot older (Around 2005)
 The challenge to early stopping was identified at least as early as \citeyear{Wald_method_1945} by \citeauthor{Wald_method_1945}, although that paper cites discussions from an even earlier paper \parencite[specifically][]{Dodge_method_1929}.  More recent work has tackled this problem as recently as \parencite{grieve2024probability}, suggesting that this problem is ages old.  Specifically, the problem lies in the increase in Type-I error rates from early stopping if a statistically significant $p$ value was obtained before the completion of the study.  To summarize briefly, repeated comparisons to the computed $p$ value lead to an accumulation of Type-I error rates.  Over the decades in between, a large number of frequentist approaches have attempted to circumvent these effects, most commonly by sacrificing Type-II error rates to improve Type-I error \parencite[see, e.g.][]{pocock1977group, o1979multiple}.
